@@ -14,7 +14,6 @@ export default tseslint.config(
       'build',
       'json-data',
       '.eslintrc.js',
-      '.turbo',
     ],
   },
   eslint.configs.recommended,

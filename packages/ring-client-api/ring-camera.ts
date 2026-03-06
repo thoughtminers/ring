@@ -1,4 +1,3 @@
-import type { SocketTicketResponse } from './ring-types.ts'
 import { RingCameraKind } from './ring-types.ts'
 import {
   type CameraData,
@@ -18,7 +17,7 @@ import {
 } from './ring-types.ts'
 import type { RingRestClient } from './rest-client.ts'
 import { appApi, clientApi, deviceApi } from './rest-client.ts'
-import { BehaviorSubject, firstValueFrom, ReplaySubject, Subject } from 'rxjs'
+import { BehaviorSubject, ReplaySubject, Subject } from 'rxjs'
 import {
   distinctUntilChanged,
   filter,
@@ -35,11 +34,6 @@ import {
   logError,
 } from './util.ts'
 import { Subscribed } from './subscribed.ts'
-import type { StreamingConnectionOptions } from './streaming/webrtc-connection.ts'
-import { WebrtcConnection } from './streaming/webrtc-connection.ts'
-import type { FfmpegOptions } from './streaming/streaming-session.ts'
-import { StreamingSession } from './streaming/streaming-session.ts'
-import { SimpleWebRtcSession } from './streaming/simple-webrtc-session.ts'
 
 export type AnyCameraData = CameraData | OnvifCameraData
 
@@ -416,31 +410,6 @@ export class RingCamera extends Subscribed {
     return response.device_health
   }
 
-  private async createStreamingConnection(options: StreamingConnectionOptions) {
-    const response = await this.restClient
-      .request<SocketTicketResponse>({
-        method: 'POST',
-        url: appApi('clap/ticket/request/signalsocket'),
-      })
-      .catch((e) => {
-        throw e
-      })
-
-    return new WebrtcConnection(response.ticket, this, options)
-  }
-
-  async startLiveCall(options: StreamingConnectionOptions = {}) {
-    // Check if live view is disabled by camera settings/modes
-    if (this.data.settings?.live_view_disabled === true) {
-      throw new Error(
-        `Live view is currently disabled for ${this.name}. This camera has been disabled via mode settings in the Ring app. Enable live view for this camera in the Ring app to start streaming.`,
-      )
-    }
-
-    const connection = await this.createStreamingConnection(options)
-    return new StreamingSession(this, connection)
-  }
-
   private removeDingById(idToRemove: string) {
     const allActiveDings = this.activeNotifications,
       otherDings = allActiveDings.filter(
@@ -659,30 +628,6 @@ export class RingCamera extends Subscribed {
         accept: 'image/jpeg',
       },
     })
-  }
-
-  async recordToFile(outputPath: string, duration = 30) {
-    const liveCall = await this.streamVideo({
-      output: ['-t', duration.toString(), outputPath],
-    })
-
-    await firstValueFrom(liveCall.onCallEnded)
-  }
-
-  async streamVideo(ffmpegOptions: FfmpegOptions) {
-    const liveCall = await this.startLiveCall()
-    await liveCall.startTranscoding(ffmpegOptions)
-    return liveCall
-  }
-
-  /**
-   * Returns a SimpleWebRtcSession, which can be initiated with an sdp offer.
-   * This session has no backplane for trickle ICE, and is designed for use in a
-   * browser setting.  Note, cameras with Ring Edge enabled will stream with the speaker
-   * enabled as soon as the stream starts, which can drain the battery more quickly.
-   */
-  createSimpleWebRtcSession() {
-    return new SimpleWebRtcSession(this, this.restClient)
   }
 
   subscribeToDingEvents() {

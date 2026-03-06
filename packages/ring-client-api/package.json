@@ -1,6 +1,6 @@
 {
   "name": "@thoughtminers/ring-client-api",
-  "version": "14.3.0",
+  "version": "14.3.1",
   "description": "Security-hardened fork of ring-client-api - Unofficial API for Ring doorbells, cameras, security alarm system and smart lighting (streaming/werift removed)",
   "main": "lib/index.js",
   "type": "module",
