@@ -1,6 +1,26 @@
 # Ring
 
+[![Node-CI](https://github.com/thoughtminers/ring/actions/workflows/nodejs.yml/badge.svg)](https://github.com/thoughtminers/ring/actions/workflows/nodejs.yml)
+
 This repo contains unofficial packages to enable interaction and automation with the majority of [Ring](https://ring.com/) products
+
+## Fork Notice
+
+This is a security-hardened fork of [dgreif/ring](https://github.com/dgreif/ring).
+
+### Why this fork exists
+
+The upstream `ring-client-api` package depends on `werift` (a WebRTC library) for live streaming support. `werift` and its transitive dependency `werift-ice` pull in the `ip` package, which has a **high-severity SSRF vulnerability** ([GHSA-2p57-rm9w-gvfp](https://github.com/advisories/GHSA-2p57-rm9w-gvfp)) with **no upstream fix available**.
+
+This fork removes `werift` and all streaming-related code from `ring-client-api`, eliminating these vulnerabilities for consumers that do not require live streaming (such as [ring-mqtt](https://github.com/thoughtminers/ring-mqtt)).
+
+### Changes from upstream
+
+- Removed `werift` dependency from `ring-client-api`
+- Removed `packages/ring-client-api/streaming/` directory (WebRTC connection, peer connection, streaming session code)
+- Removed streaming methods from `RingCamera` (`startLiveCall`, `streamVideo`, `recordToFile`, `createSimpleWebRtcSession`)
+- All non-streaming APIs (alarm, devices, camera snapshots, notifications, events) remain fully functional
+- Added `npm audit` CI step and Dependabot configuration
 
 ## Troubleshooting Issues
 

@@ -1,15 +1,14 @@
 {
-  "name": "ring-client-api",
+  "name": "@thoughtminers/ring-client-api",
   "version": "14.3.0",
-  "description": "Unofficial API for Ring doorbells, cameras, security alarm system and smart lighting",
+  "description": "Security-hardened fork of ring-client-api - Unofficial API for Ring doorbells, cameras, security alarm system and smart lighting (streaming/werift removed)",
   "main": "lib/index.js",
   "type": "module",
   "exports": {
     ".": "./lib/index.js",
     "./ffmpeg": "./lib/ffmpeg.js",
     "./util": "./lib/util.js",
-    "./rest-client": "./lib/rest-client.js",
-    "./streaming/streaming-session": "./lib/streaming/streaming-session.js"
+    "./rest-client": "./lib/rest-client.js"
   },
   "scripts": {
     "build": "rm -rf lib && tsc --declaration && chmod +x ./lib/ring-*-cli.js && rm -rf ./lib/test",
@@ -26,8 +25,7 @@
     "rxjs": "^7.8.2",
     "systeminformation": "^5.30.8",
     "undici": "^7.19.2",
-    "uuid": "^13.0.0",
-    "werift": "0.22.4"
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@types/debug": "4.1.12",
@@ -46,22 +44,37 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/dgreif/ring.git"
+    "url": "git://github.com/thoughtminers/ring.git"
   },
   "bugs": {
-    "url": "https://github.com/dgreif/ring/issues"
+    "url": "https://github.com/thoughtminers/ring/issues"
   },
-  "homepage": "https://github.com/dgreif/ring/tree/main/packages/ring-client-api#ring-client-api",
-  "author": "dgreif",
+  "homepage": "https://github.com/thoughtminers/ring/tree/main/packages/ring-client-api#ring-client-api",
+  "contributors": [
+    {
+      "name": "Dusty Greif",
+      "url": "https://github.com/dgreif"
+    },
+    {
+      "name": "Nicolas Cerveaux",
+      "url": "https://github.com/thoughtminers"
+    }
+  ],
   "license": "MIT",
   "funding": [
     {
+      "type": "custom",
+      "url": "https://buymeacoffee.com/thoughtminers"
+    },
+    {
       "type": "paypal",
-      "url": "https://www.paypal.me/dustingreif"
+      "url": "https://www.paypal.me/dustingreif",
+      "note": "Original author (dgreif/ring)"
     },
     {
       "type": "github",
-      "url": "https://github.com/sponsors/dgreif"
+      "url": "https://github.com/sponsors/dgreif",
+      "note": "Original author (dgreif/ring)"
     }
   ],
   "bin": {

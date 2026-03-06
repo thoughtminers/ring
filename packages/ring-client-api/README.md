@@ -1,8 +1,9 @@
 # ring-client-api
 
-[![npm](https://badgen.net/npm/v/ring-client-api)](https://www.npmjs.com/package/ring-client-api)
-[![npm](https://badgen.net/npm/dt/ring-client-api)](https://www.npmjs.com/package/ring-client-api)
-[![Donate](https://badgen.net/badge/Donate/PayPal/91BE09)](https://www.paypal.me/dustingreif)
+> **Fork Notice:** This is a security-hardened fork. The `werift` WebRTC dependency and all live streaming code have been removed to eliminate high-severity vulnerabilities ([GHSA-2p57-rm9w-gvfp](https://github.com/advisories/GHSA-2p57-rm9w-gvfp)). All non-streaming APIs (alarm, devices, snapshots, notifications, events) remain fully functional. See the [root README](../../README.md#fork-notice) for details.
+
+[![npm](https://badgen.net/npm/v/@thoughtminers/ring-client-api)](https://www.npmjs.com/package/@thoughtminers/ring-client-api)
+[![npm](https://badgen.net/npm/dt/@thoughtminers/ring-client-api)](https://www.npmjs.com/package/@thoughtminers/ring-client-api)
 
 This is an unofficial TypeScript api for [Ring Doorbells](https://shop.ring.com/pages/doorbell-cameras),
 [Ring Cameras](https://shop.ring.com/pages/security-cameras),
@@ -13,18 +14,18 @@ Built to support the [homebridge-ring Plugin](../homebridge-ring)
 
 ## Troubleshooting Issues
 
-If you are having issues, please look for related articles in the [wiki](https://github.com/dgreif/ring/wiki) and search existing [Issues](https://github.com/dgreif/ring/issues) before opening a new Issue/Discussion
+If you are having issues, please search existing [Issues](https://github.com/thoughtminers/ring/issues) before opening a new one.
 
 ## Installation
 
-`npm i ring-client-api`
+`npm i @thoughtminers/ring-client-api`
 
 ## Setup and Config
 
 First, generate a `refreshToken` using the instructions in the [Refresh Tokens Wiki](https://github.com/dgreif/ring/wiki/Refresh-Tokens)
 
 ```js
-import { RingApi } from 'ring-client-api'
+import { RingApi } from '@thoughtminers/ring-client-api'
 
 const ringApi = new RingApi({
   refreshToken:
@@ -82,7 +83,7 @@ to interact with associated devices. These devices include ring alarm, ring ligh
 and third party devices connected to ring alarm
 
 ```js
-import { RingDeviceType } from 'ring-client-api'
+import { RingDeviceType } from '@thoughtminers/ring-client-api'
 
 const devices = await location.getDevices()
 const baseStation = devices.find(
@@ -109,12 +110,12 @@ camera.onData.subscribe((data) => {
 camera.setLight(true) // turn light on/off
 camera.setSiren(true) // turn siren on/off
 camera.getHealth() // fetch health info like wifi status
-camera.startVideoOnDemand() // ask the camera to start a new video stream
-camera.createSipSession() // creates a new SipSession which allows you to control RTP flow
 camera.getEvents() // fetch ding events for the camera (like motion and doorbell presses)
 camera.getRecordingUrl(dingIdStr, { transcoded: true }) // fetch the url for a recording
 camera.getSnapshot() // returns a Promise<Buffer> of the latest snapshot from the camera
 ```
+
+> **Note:** Live streaming methods (`startLiveCall`, `streamVideo`, `recordToFile`, `createSimpleWebRtcSession`) have been removed in this fork. If you need live streaming, you can use the upstream [ring-client-api](https://www.npmjs.com/package/ring-client-api) at your own risk — it includes known high-severity vulnerabilities with no fix available.
 
 Camera also includes the following observables:
 
