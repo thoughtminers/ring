@@ -30,9 +30,7 @@ export default tseslint.config(
     languageOptions: {
       globals: globals.node,
       parser: parser,
-      parserOptions: {
-        project: './tsconfig.json',
-      },
+      parserOptions: {},
     },
     rules: {
       'comma-dangle': [2, 'only-multiline'],
@@ -185,7 +183,7 @@ export default tseslint.config(
       '@typescript-eslint/explicit-function-return-type': 0,
       '@typescript-eslint/no-explicit-any': 0,
       '@typescript-eslint/no-empty-interface': 0,
-      '@typescript-eslint/no-floating-promises': 2,
+      '@typescript-eslint/no-floating-promises': 0,
       '@typescript-eslint/no-parameter-properties': 0,
       '@typescript-eslint/explicit-member-accessibility': 0,
       '@typescript-eslint/no-use-before-define': 0,

@@ -48,7 +48,7 @@ export const RingDeviceType = {
   WaterValve: 'valve.water',
   KiddeSmokeCoAlarm: 'comp.bluejay.sensor_bluejay_wsc',
 } as const
-// eslint-disable-next-line no-redeclare
+ 
 export type RingDeviceType =
   (typeof RingDeviceType)[keyof typeof RingDeviceType]
 
@@ -72,7 +72,7 @@ export const RingDeviceCategory = {
   PanicButtons: 35,
   WaterValves: 37,
 } as const
-// eslint-disable-next-line no-redeclare
+ 
 export type RingDeviceCategory =
   (typeof RingDeviceCategory)[keyof typeof RingDeviceCategory]
 
@@ -112,7 +112,7 @@ export const RingCameraKind = {
   stickup_cam_mini: 'stickup_cam_mini',
   onvif_camera: 'onvif_camera',
 } as const
-// eslint-disable-next-line no-redeclare
+ 
 export type RingCameraKind =
   (typeof RingCameraKind)[keyof typeof RingCameraKind]
 
@@ -451,7 +451,7 @@ export const DoorbellType = {
   Digital: 1,
   None: 2,
 } as const
-// eslint-disable-next-line no-redeclare
+ 
 export type DoorbellType = (typeof DoorbellType)[keyof typeof DoorbellType]
 
 export interface BaseCameraData {
@@ -1030,7 +1030,7 @@ export const NotificationDetectionType = {
   NotAvailable: 'null',
   StreamBroken: 'stream_broken',
 } as const
-// eslint-disable-next-line no-redeclare
+ 
 export type NotificationDetectionType =
   (typeof NotificationDetectionType)[keyof typeof NotificationDetectionType]
 
@@ -1044,7 +1044,7 @@ export const PushNotificationAction = {
   AlarmSoundSiren: 'com.ring.push.HANDLE_NEW_USER_SOUND_SIREN',
   AlarmSilenceSiren: 'com.ring.push.HANDLE_NEW_NON_ALARM_SIREN_SILENCED',
 } as const
-// eslint-disable-next-line no-redeclare
+ 
 export type PushNotificationAction =
   (typeof PushNotificationAction)[keyof typeof PushNotificationAction]
 
@@ -1216,7 +1216,7 @@ export const DispatchSignalType = {
   Burglar: 'user-verified-burglar-xa',
   Fire: 'user-verified-fire-xa',
 } as const
-// eslint-disable-next-line no-redeclare
+ 
 export type DispatchSignalType =
   (typeof DispatchSignalType)[keyof typeof DispatchSignalType]
 
