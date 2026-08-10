@@ -9,6 +9,7 @@
     "rewriteRelativeImportExtensions": true,
     "erasableSyntaxOnly": true,
     "strict": true,
+    "noUnusedLocals": true,
     "skipLibCheck": true
   }
 }
