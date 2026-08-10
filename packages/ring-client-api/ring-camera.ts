@@ -16,7 +16,7 @@ import {
   type PushNotification,
 } from './ring-types.ts'
 import type { RingRestClient } from './rest-client.ts'
-import { appApi, clientApi, deviceApi } from './rest-client.ts'
+import { clientApi, deviceApi } from './rest-client.ts'
 import { BehaviorSubject, ReplaySubject, Subject } from 'rxjs'
 import {
   distinctUntilChanged,
