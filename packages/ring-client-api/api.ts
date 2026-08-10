@@ -239,6 +239,13 @@ export class RingApi extends Subscribed {
         this.restClient._internalOnly_pushNotificationCredentials?.config &&
         this.restClient._internalOnly_pushNotificationCredentials,
       pushReceiver = new PushReceiver({
+        // Ring's own public Firebase client config, taken from the Ring Android
+        // app, used to register with FCM and receive device push notifications.
+        // NOT A SECRET and not ours: a Firebase apiKey is a public project
+        // identifier meant to ship inside client bundles, and project
+        // `ring-17770` belongs to Ring/Amazon, so there is nothing here we
+        // could rotate. Secret scanners flag this routinely -- see the "Known
+        // false positives" section of SECURITY.md before acting on a report.
         firebase: {
           apiKey: 'AIzaSyCv-hdFBmmdBBJadNy-TFwB-xN_H5m3Bk8',
           projectId: 'ring-17770',
