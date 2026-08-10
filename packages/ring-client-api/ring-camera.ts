@@ -115,7 +115,9 @@ export function cleanSnapshotUuid(uuid?: string | null) {
     return uuid
   }
 
-  return uuid.replace(/:.*$/, '')
+  // Split rather than a `/:.*$/` regex: the greedy `.*` before an anchor
+  // backtracks per candidate `:`, which is quadratic on colon-dense input.
+  return uuid.split(':')[0]
 }
 
 const wiredModelsWithNoSnapshotDuringRecording = new Set<RingCameraKind>([
