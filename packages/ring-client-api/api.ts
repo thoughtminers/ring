@@ -18,7 +18,7 @@ import { PushNotificationAction, RingDeviceType } from './ring-types.ts'
 import type { AnyCameraData } from './ring-camera.ts'
 import { RingCamera } from './ring-camera.ts'
 import { RingChime } from './ring-chime.ts'
-import { combineLatest, EMPTY, merge, Subject } from 'rxjs'
+import { combineLatest, merge, Subject } from 'rxjs'
 import {
   debounceTime,
   startWith,
@@ -161,9 +161,9 @@ export class RingApi extends Subscribed {
         ...devices.map((device) => device.onRequestUpdate),
       ),
       onUpdateReceived = new Subject(),
-      onPollForStatusUpdate = cameraStatusPollingSeconds
-        ? onUpdateReceived.pipe(debounceTime(cameraStatusPollingSeconds * 1000))
-        : EMPTY,
+      onPollForStatusUpdate = onUpdateReceived.pipe(
+        debounceTime(cameraStatusPollingSeconds * 1000),
+      ),
       camerasById = cameras.reduce(
         (byId, camera) => {
           byId[camera.id] = camera
