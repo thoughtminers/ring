@@ -226,9 +226,7 @@ export class RingApi extends Subscribed {
         }),
     )
 
-    if (cameraStatusPollingSeconds) {
-      onUpdateReceived.next(null) // kick off polling
-    }
+    onUpdateReceived.next(null) // kick off polling
   }
 
   private async registerPushReceiver(
